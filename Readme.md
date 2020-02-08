@@ -1,7 +1,7 @@
-# Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
+﻿# Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Роман Вахрин](https://up.htmlacademy.ru/javascript/19/user/810039).
-* Наставник: `Неизвестно`.
+* Наставник: [Дмитрий Железцов] (https://htmlacademy.ru/profile/sench).
 
 ---
 
