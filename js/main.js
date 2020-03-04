@@ -176,6 +176,6 @@ for (var i = 0; i < AUTORS_OF_OFFER; i++) {
 
   fragmentDescriptions.appendChild(createPinDescriptionElement(advert));
 }
-
+/* olololol */
 mapPinsContainer.appendChild(fragmentPins);
 mapFiltersContainer.before(fragmentDescriptions);
