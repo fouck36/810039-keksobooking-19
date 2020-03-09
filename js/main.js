@@ -157,12 +157,43 @@ var createPinDescriptionElement = function (advert) {
   return template;
 };
 
+var setDisabled = function (array, isDisabled) {
+  for (var i = 0; i < array.length; i++) {
+    if (isDisabled) {
+      array[i].setAttribute('disabled', '');
+    } else {
+      array[i].removeAttribute('disabled', '');
+    }
+  }
+
+  return array;
+};
+
+var onActivatePage = function () {
+  mapContainer.classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
+  setDisabled(mapFilters, false);
+  setDisabled(AdFormElements, false);
+  setDisabled(AdFormHeader, false);
+  mapPinsContainer.appendChild(fragmentPins);
+};
+
 var mapContainer = document.querySelector('.map');
 var mapFiltersContainer = document.querySelector('.map .map__filters-container');
 
 var mapWidth = mapContainer.clientWidth;
 
 var mapPinsContainer = document.querySelector('.map .map__pins');
+
+var mainPin = mapContainer.querySelector('.map__pin--main');
+
+var mapFilters = mapContainer.querySelectorAll('.map__filter');
+
+var adForm = document.querySelector('.ad-form');
+
+var AdFormElements = document.querySelectorAll('.ad-form__element');
+
+var AdFormHeader = document.querySelectorAll('.ad-form-header');
 
 mapContainer.classList.remove('map--faded');
 
@@ -176,6 +207,21 @@ for (var i = 0; i < AUTORS_OF_OFFER; i++) {
 
   fragmentDescriptions.appendChild(createPinDescriptionElement(advert));
 }
-/* olololol */
-mapPinsContainer.appendChild(fragmentPins);
-mapFiltersContainer.before(fragmentDescriptions);
+
+mainPin.addEventListener('click', function (evt) {
+  evt.preventDefault();
+
+  if (mapContainer.classList.contains('map--faded')) {
+    onActivatePage();
+  }
+
+});
+
+
+//mapPinsContainer.appendChild(fragmentPins);
+//mapFiltersContainer.before(fragmentDescriptions);
+
+//Блокировка поля формы
+setDisabled(mapFilters, true);
+setDisabled(AdFormElements, true);
+setDisabled(AdFormHeader, true);
