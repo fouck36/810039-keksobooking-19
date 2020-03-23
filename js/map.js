@@ -34,11 +34,61 @@
 
   var onSuccessData = function (data) {
     pinsData = data.slice();
-    console.log(pinsData);
     window.pin.create(pinsData);
   };
 
+  var filterData = function () {
+    var typeValue = housingType.value;
+    var priceValue = housingPrice.value;
+    var roomsValue = housingRooms.value;
+    var guestsValue = housingGuests.value;
 
+    var priceToLevel = {
+      '+50000': 'high',
+      '+10000': 'middle',
+      '+0': 'low'
+    };
+
+    var getPriceLevel = function (price) {
+      for (var key in priceToLevel) {
+        if (+key < price) {
+          return priceToLevel[key];
+        }
+      }
+      return null;
+    };
+
+    var checkedFeatures = Array
+      .from(housingFeatures.querySelectorAll('input:checked'))
+      .map(function (feature) {
+        return feature.value;
+      });
+
+    var arrayEquals = function (firstArr, secondArr) {
+      return firstArr.every(function (val) {
+        return secondArr.includes(val);
+      });
+    };
+
+    var data = pinsData.filter(function (card) {
+      var isTypeMatched = typeValue === FILTER_DEFAULT ? true : card.offer.type === typeValue;
+      var isRoomsMatched = roomsValue === FILTER_DEFAULT ? true : card.offer.rooms === +roomsValue;
+      var isGuestsMatched = guestsValue === FILTER_DEFAULT ? true : card.offer.guests === +guestsValue;
+      var isPricesMatched = priceValue === FILTER_DEFAULT ? true : getPriceLevel(card.offer.price) === priceValue;
+      var isFeaturesMatched = arrayEquals(checkedFeatures, card.offer.features);
+      return isTypeMatched && isRoomsMatched && isGuestsMatched && isPricesMatched && isFeaturesMatched;
+    });
+    return data;
+  };
+
+  var updateMapOnFilter = function () {
+    window.card.delete();
+    window.util.deletePins();
+    window.pin.create(filterData());
+  };
+
+  var onFilterChange = window.util.debounce(updateMapOnFilter);
+  mapFilters.addEventListener('change', onFilterChange);
 
   window.map = {
     mainBlock: map,
