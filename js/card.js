@@ -2,7 +2,7 @@
 (function () {
 
   var cardTemplate = document.querySelector('#card')
-    .content.querySelector('.map__card');
+      .content.querySelector('.map__card');
 
   var houseTypeToName = {
     flat: 'Квартира',
