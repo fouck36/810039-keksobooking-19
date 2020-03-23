@@ -6,7 +6,7 @@
   var enablePage = function (data) {
     window.map.onSuccessData(data);
     window.map.mainBlock.classList.remove('map--faded');
-    
+
     window.form.ad.classList.remove('ad-form--disabled');
     window.util.enableElem(window.disablePage.disableElements);
     window.form.addressInputFill(window.map.mainPin.style.left, window.map.mainPin.style.top);
