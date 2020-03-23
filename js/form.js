@@ -6,7 +6,7 @@
   var FLAT_PRICE = 1000;
   var HOUSE_PRICE = 5000;
   var PALACE_PRICE = 10000;
-
+  var EMPTY_PHOTO_SRC = 'img/muffin-grey.svg';
   var houseType = document.querySelector('#type');
   var priceInput = document.querySelector('#price');
   var adForm = document.querySelector('.ad-form');
@@ -19,6 +19,12 @@
   var roomNumberSelect = document.querySelector('#room_number');
   var capacity = document.querySelector('#capacity');
   var capacityOptions = capacity.querySelectorAll('option');
+
+  var setPriceDefault = function () {
+    priceInput.placeholder = FLAT_PRICE;
+    priceInput.min = FLAT_PRICE;
+  };
+  setPriceDefault();
 
   var houseTypeToPrice = {
     bungalo: BUNGALO_PRICE,
@@ -119,8 +125,26 @@
 
   addressInputFill(window.map.mainPin.style.left, window.map.mainPin.style.top);
 
+  adForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.upload(new FormData(adForm), window.onSendPopup.actionsIfSuccess, window.onSendPopup.actionsIfError);
+  });
+
+  var resetPreview = function (arr) {
+    arr.forEach(function (preview) {
+      if (preview.classList.contains('home-photo')) {
+        preview.remove();
+        window.avatar.previews.pop();
+        window.avatar.bookingChooser.value = '';
+      } else {
+        preview.src = EMPTY_PHOTO_SRC;
+      }
+    });
+  };
+
   window.form = {
     addressInputFill: addressInputFill,
+    setPriceDefault: setPriceDefault,
     ad: adForm,
     priceInput: priceInput,
     title: title,
@@ -130,6 +154,8 @@
     timein: timein,
     timeout: timeout,
     capacity: capacity,
-    roomNumberSelect: roomNumberSelect
+    roomNumberSelect: roomNumberSelect,
+    setDefaultCapacity: setDefaultCapacity,
+    resetPreview: resetPreview
   };
 })();

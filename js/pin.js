@@ -20,6 +20,7 @@
     window.map.addOnPinClick(mapPin, arr);
     return mapPin;
   };
+  // Функция принимает на вход массив. Клонирует заготовку пина. Распологает по координатам. Координаты берет из массива.Добавляет изображения и заголовок. Навешивает функцию клика на пин.
 
   var createPins = function (data) {
     var fragment = document.createDocumentFragment();

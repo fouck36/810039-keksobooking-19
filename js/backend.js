@@ -40,6 +40,5 @@
     var xhr = getData(onSuccess, onError);
     xhr.open(METHOD_POST, URL_UPLOAD);
     xhr.send(data);
-    console.log(data);
   };
 })();
