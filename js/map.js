@@ -34,7 +34,6 @@
 
   var onSuccessData = function (data) {
     pinsData = data.slice();
-    console.log(pinsData);
     window.pin.create(pinsData);
   };
 
